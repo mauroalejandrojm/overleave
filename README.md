@@ -46,6 +46,7 @@ If you are using the Overleave extension, but everytime you update your project 
 
 ## Next Improvements 
 
+* Reload latex render in the last page visualized in browser.
 * Fix glitches in the toggle due to missing clicks.
 * Availability in Chrome for Overleave extension.
 * Guidelines in the UI for usability.
