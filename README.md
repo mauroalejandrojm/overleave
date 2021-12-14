@@ -25,8 +25,12 @@ You can run the extension in any chromium based web browser. To run in developer
 4. Click "Load Unpacked" in the left hand side
 5. Upload the project
 
+## Availability:
+* [Edge extension](https://microsoftedge.microsoft.com/addons/detail/overleave/eeehbcnhmkmaemejinecopbagnpbccjh).
+
 ## Troubleshootting
 
+Feel free to report any issue or suggestion about how can we improve this extension.
 If you are using the Overleave extension, but everytime you update your project the PDF gets download follow this steps:
 
 #### Google Chrome
@@ -47,7 +51,7 @@ If you are using the Overleave extension, but everytime you update your project 
 ## Next Improvements 
 
 * Reload latex render in the last page visualized in browser.
-* Fix glitches in the toggle due to missing clicks.
+* Add an options page with settings and preferences.
 * Availability in Chrome for Overleave extension.
 * Guidelines in the UI for usability.
 
