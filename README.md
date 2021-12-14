@@ -57,6 +57,7 @@ If you are using the Overleave extension, but everytime you update your project 
 
 ## Contributors
 
-Shreya Shankar - shreyashankar 
+Shreya Shankar - shreyashankar
+
 jmauro - mauroalejandrojm
 
