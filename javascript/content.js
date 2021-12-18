@@ -1,42 +1,52 @@
-var popup_toggle = localStorage.getItem("toggle_status");
-if (popup_toggle === null) {
-    popup_toggle = 'false'
-}
-
+let tab_window = window;
+var popup_toggle = null;
 var oldURL = sessionStorage.getItem("oldURL");
 var newURL = sessionStorage.getItem("newURL");
-if (popup_toggle == 'true') {
-    if (oldURL === null && newURL === null) { 
-        oldURL = "";
-        newURL = "";
-        var w = window.open('', "_overleave");
+
+chrome.storage.local.get("toggle_status",(data)=> {
+    popup_toggle = data["toggle_status"];
+
+    if (popup_toggle === null) {
+        popup_toggle = 'false'
     }
-    else {
-        oldURL = oldURL;
-        newURL = newURL;
-        var w = window.open(newURL, "_overleave");
+    
+    if (popup_toggle == 'true') {
+        if (oldURL === null && newURL === null) { 
+            oldURL = "";
+            newURL = "";
+            tab_state = '';
+        }
+        else {
+            oldURL = oldURL;
+            newURL = newURL;
+            tab_state = newURL;
+        }
+        tab_window = window.open(tab_state, "_overleave");
     }
-}
+});
 
 window.onload = function() {
     var oldURL = sessionStorage.getItem("oldURL");
     var newURL = sessionStorage.getItem("newURL");
-    var popup_toggle = localStorage.getItem("toggle_status");
-    localStorage.setItem("toggle_status",popup_toggle);
-
-    if (oldURL === null && newURL === null) { 
-        oldURL = "";
-        newURL = "";
-    }
-    else {
-        oldURL = oldURL;
-        newURL = newURL;
-    }
+    chrome.storage.local.get("toggle_status",(data)=> {
+        popup_toggle = data["toggle_status"];
+        chrome.storage.local.set({"toggle_status": popup_toggle});
+        if (oldURL === null && newURL === null) { 
+            oldURL = "";
+            newURL = "";
+        }
+        else {
+            oldURL = oldURL;
+            newURL = newURL;
+        }
+    });
 }
 
 window.onbeforeunload = function() {
-    var popup_toggle = localStorage.getItem("toggle_status");
-    localStorage.setItem("toggle_status",popup_toggle);
+    chrome.storage.local.get("toggle_status",(data)=> {
+        popup_toggle = data["toggle_status"];
+        chrome.storage.local.set({"toggle_status": popup_toggle});
+    });
     sessionStorage.setItem("oldURL", oldURL);
     sessionStorage.setItem("newURL",newURL);
 }
@@ -45,9 +55,9 @@ function updateWindow(elem) {
     newURL = elem.href.slice(0, -19);
     if (newURL !== oldURL) {
         oldURL = newURL;
-        if (popup_toggle == 'true') {
-            w.location.replace(newURL);
-        }
+        if ((popup_toggle == 'true') && (tab_window)) {
+            tab_window.location.replace(newURL);
+        }   
     }
 }
 
