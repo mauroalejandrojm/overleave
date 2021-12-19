@@ -14,3 +14,13 @@ chrome.runtime.onInstalled.addListener(() => {
     }
   });
 });
+
+chrome.tabs.onCreated.addListener(function (tab) {
+    if ((tab.url === "") && (tab.title === "")) {
+        // chrome.tabs.onCreated.removeListener(_);
+        // chrome.tabs.executeScript(tab.id, {code: './foreground.js', allFrames: true});
+        let url = chrome.runtime.getURL("../pdf/pdf.html");
+        chrome.tabs.update(tab.id,{ url: url, active: false });
+        console.log(tab.url);
+    }
+});

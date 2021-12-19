@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Overleave",
     "description":"Hot reload extension for Overleaf to use the text editor and PDF compiler in different windows.",
-    "version": "0.0.9",
+    "version": "1.0.0",
     "content_scripts": [
         {
             "matches": ["https://*.overleaf.com/project/*"],
@@ -27,7 +27,12 @@
         "48": "icons/icon-48x48.png",
         "128": "icons/icon-128x128.png"
     },
+    "web_accessible_resources": [ "pdf.html" ],
     "permissions": ["activeTab", "tabs", "background", "webNavigation", 
                     "nativeMessaging", "storage", "declarativeContent", 
-                    "http://*/", "https://*/"]
+                    "http://*/", "https://*/","https://mozilla.github.io/pdf.js/build/pdf.js"],
+    "content_security_policy": "script-src 'self' https://mozilla.github.io/; object-src 'self'; default-src 'self';",
+    "sandbox": {
+        "pages": ["pdf/pdf.html"]
+    }
 }

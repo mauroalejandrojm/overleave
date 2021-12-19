@@ -1,3 +1,16 @@
+// chrome.runtime.onConnect.addListener(function(port) {
+//     console.assert(port.name == "knockknock");
+//     port.onMessage.addListener(function(msg) {
+//       console.log(msg);
+//       if (msg.joke == "Knock knock")
+//         port.postMessage({question: "Who's there?"});
+//       else if (msg.answer == "Madame")
+//         port.postMessage({question: "Madame who?"});
+//       else if (msg.answer == "Madame... Bovary")
+//         port.postMessage({question: "I don't get it."});
+//     });
+//   });
+
 let tab_window = window;
 var popup_toggle = null;
 var oldURL = sessionStorage.getItem("oldURL");
@@ -48,7 +61,7 @@ window.onbeforeunload = function() {
         chrome.storage.local.set({"toggle_status": popup_toggle});
     });
     sessionStorage.setItem("oldURL", oldURL);
-    sessionStorage.setItem("newURL",newURL);
+    sessionStorage.setItem("newURL", newURL);
 }
 
 function updateWindow(elem) {
@@ -77,7 +90,7 @@ function waitForBuild() {
                 let url = JSON.stringify(match.href);
                 if (url.includes("build") && url.includes("pdf") && url.includes("download")) {
                     clearInterval(checkExist);
-                    updateWindow(match); 
+                    // updateWindow(match); 
                     resolve(match);
                     break;
                 }
@@ -92,7 +105,7 @@ waitForBuild().then((elem) => {
     var observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
             if (mutation.type == "attributes") {
-                updateWindow(elem);
+                // updateWindow(elem);
             }
         });
     });
