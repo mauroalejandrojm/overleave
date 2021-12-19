@@ -1,20 +1,8 @@
-// chrome.runtime.onConnect.addListener(function(port) {
-//     console.assert(port.name == "knockknock");
-//     port.onMessage.addListener(function(msg) {
-//       console.log(msg);
-//       if (msg.joke == "Knock knock")
-//         port.postMessage({question: "Who's there?"});
-//       else if (msg.answer == "Madame")
-//         port.postMessage({question: "Madame who?"});
-//       else if (msg.answer == "Madame... Bovary")
-//         port.postMessage({question: "I don't get it."});
-//     });
-//   });
-
 let tab_window = window;
 var popup_toggle = null;
 var oldURL = sessionStorage.getItem("oldURL");
 var newURL = sessionStorage.getItem("newURL");
+var port = chrome.runtime.connect({name: "overleave_url"});
 
 chrome.storage.local.get("toggle_status",(data)=> {
     popup_toggle = data["toggle_status"];
@@ -24,7 +12,7 @@ chrome.storage.local.get("toggle_status",(data)=> {
     }
     
     if (popup_toggle == 'true') {
-        if (oldURL === null && newURL === null) { 
+        if (oldURL === null || newURL === null) { 
             oldURL = "";
             newURL = "";
             tab_state = '';
@@ -34,7 +22,8 @@ chrome.storage.local.get("toggle_status",(data)=> {
             newURL = newURL;
             tab_state = newURL;
         }
-        tab_window = window.open(tab_state, "_overleave");
+        // tab_window = window.open(tab_state, "_overleave");
+        port.postMessage({url: tab_state});
     }
 });
 
@@ -56,7 +45,7 @@ window.onload = function() {
 }
 
 window.onbeforeunload = function() {
-    chrome.storage.local.get("toggle_status",(data)=> {
+    chrome.storage.local.get("toggle_status", (data) => {
         popup_toggle = data["toggle_status"];
         chrome.storage.local.set({"toggle_status": popup_toggle});
     });
@@ -69,7 +58,8 @@ function updateWindow(elem) {
     if (newURL !== oldURL) {
         oldURL = newURL;
         if ((popup_toggle == 'true') && (tab_window)) {
-            tab_window.location.replace(newURL);
+            port.postMessage({url: newURL});
+            // tab_window.location.replace(newURL);
         }   
     }
 }
@@ -90,7 +80,7 @@ function waitForBuild() {
                 let url = JSON.stringify(match.href);
                 if (url.includes("build") && url.includes("pdf") && url.includes("download")) {
                     clearInterval(checkExist);
-                    // updateWindow(match); 
+                    updateWindow(match); 
                     resolve(match);
                     break;
                 }
@@ -105,7 +95,7 @@ waitForBuild().then((elem) => {
     var observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
             if (mutation.type == "attributes") {
-                // updateWindow(elem);
+                updateWindow(elem);
             }
         });
     });

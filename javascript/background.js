@@ -15,12 +15,28 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-chrome.tabs.onCreated.addListener(function (tab) {
-    if ((tab.url === "") && (tab.title === "")) {
-        // chrome.tabs.onCreated.removeListener(_);
-        // chrome.tabs.executeScript(tab.id, {code: './foreground.js', allFrames: true});
-        let url = chrome.runtime.getURL("../pdf/pdf.html");
-        chrome.tabs.update(tab.id,{ url: url, active: false });
-        console.log(tab.url);
+chrome.tabs.onUpdated.addListener(function _(tabId, changeInfo, tab) {
+    if (/^https:\/\/www\.overleaf.com\/project/.test(tab.url)) {
+      chrome.tabs.onUpdated.removeListener(_);
+      let url = chrome.runtime.getURL("../pdf/pdf.html");
+      chrome.tabs.create({ url: url, active: false });
     }
 });
+
+chrome.runtime.onConnect.addListener(function(port) {
+  console.assert(port.name == "overleave_url");
+  port.onMessage.addListener(function(msg) {
+    console.log(msg);
+    if (msg.url) {
+      port.postMessage({new_url: msg.url});
+    }
+  });
+});
+
+chrome.runtime.onMessageExternal.addListener(
+  function(request, sender, sendResponse) {
+    if (sender.url === blocklistedWebsite)
+      return;  // don't allow this web page access
+    if (request.openUrlInEditor)
+      openUrl(request.openUrlInEditor);
+  });
