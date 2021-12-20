@@ -18,8 +18,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.tabs.onUpdated.addListener(function _(tabId, changeInfo, tab) {
     if (/^https:\/\/www\.overleaf.com\/project/.test(tab.url)) {
       chrome.tabs.onUpdated.removeListener(_);
-      sandboxWindow = window.open("../pdf/pdf.html","overleave_sandbox");   
-      sandboxWindow.postMessage('Just wanted to say hey.', '*');
+      sandboxWindow = window.open("../pdf/pdf.html","overleave_sandbox");
     }
 });
 
