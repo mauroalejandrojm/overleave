@@ -1,4 +1,4 @@
-let tab_window = window;
+var tab_window = window;
 var popup_toggle = null;
 var oldURL = sessionStorage.getItem("oldURL");
 var newURL = sessionStorage.getItem("newURL");

@@ -1,4 +1,4 @@
-let toggle_status = null;
+var toggle_status = null;
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.get('toggle_status', (data) =>{
