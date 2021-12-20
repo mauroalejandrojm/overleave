@@ -18,7 +18,7 @@
         "default_popup": "popup/popup.html"
     },
     "background": {
-        "scripts": ["javascript/background.js"],
+        "page": "background/background.html",
         "persistent": false
     },
     "icons": {
@@ -31,11 +31,10 @@
     "permissions": ["activeTab", "tabs", "background", "webNavigation", 
                     "nativeMessaging", "storage", "declarativeContent", 
                     "http://*/", "https://*/", "*://ecjjfbmbjnhnjahdefacecabpfoibgma/"],
-    "content_security_policy": "script-src 'self'; object-src 'self'; default-src 'self';",
     "sandbox": {
         "pages": ["pdf/pdf.html"]
     },
     "externally_connectable": {
         "matches": ["*://ecjjfbmbjnhnjahdefacecabpfoibgma/"]
-      }
+    }
 }

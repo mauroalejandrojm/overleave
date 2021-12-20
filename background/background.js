@@ -18,17 +18,21 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.tabs.onUpdated.addListener(function _(tabId, changeInfo, tab) {
     if (/^https:\/\/www\.overleaf.com\/project/.test(tab.url)) {
       chrome.tabs.onUpdated.removeListener(_);
-      let url = chrome.runtime.getURL("../pdf/pdf.html");
-      chrome.tabs.create({ url: url, active: false });
+      sandboxWindow = window.open("../pdf/pdf.html","overleave_sandbox");   
+      sandboxWindow.postMessage('Just wanted to say hey.', '*');
     }
 });
 
 chrome.runtime.onConnect.addListener(function(port) {
   console.assert(port.name == "overleave_url");
   port.onMessage.addListener(function(msg) {
-    console.log(msg);
+    // console.log(msg);
     if (msg.url) {
-      port.postMessage({new_url: msg.url});
+      var iframe = document.getElementById('extension-iframe');
+      iframe.contentWindow.postMessage(msg.url, '*');
+      window.addEventListener('message', function (event) {
+        console.log("data catch in background listener: " + event["data"]);
+      }, { once: true })
     }
   });
 });
