@@ -2,7 +2,6 @@ var tab_window = window;
 var popup_toggle = null;
 var oldURL = sessionStorage.getItem("oldURL");
 var newURL = sessionStorage.getItem("newURL");
-var port = chrome.runtime.connect({name: "overleave_url"});
 
 chrome.storage.local.get("toggle_status",(data)=> {
     popup_toggle = data["toggle_status"];
@@ -22,8 +21,8 @@ chrome.storage.local.get("toggle_status",(data)=> {
             newURL = newURL;
             tab_state = newURL;
         }
-        // tab_window = window.open(tab_state, "_overleave");
-        port.postMessage({url: tab_state});
+        if (window.location.href.length>32)
+            tab_window = window.open(tab_state, "_overleave");
     }
 });
 
@@ -58,8 +57,7 @@ function updateWindow(elem) {
     if (newURL !== oldURL) {
         oldURL = newURL;
         if ((popup_toggle == 'true') && (tab_window)) {
-            port.postMessage({url: newURL});
-            // tab_window.location.replace(newURL);
+            tab_window.location.replace(newURL);
         }   
     }
 }

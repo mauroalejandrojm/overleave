@@ -27,15 +27,14 @@
         "48": "icons/icon-48x48.png",
         "128": "icons/icon-128x128.png"
     },
-    "web_accessible_resources": ["pdf.html", "https://www.overleaf.com/download/project/"],
-    "permissions": ["activeTab", "tabs", "background", "webNavigation", 
+    "web_accessible_resources": ["pdf.html", "https://www.overleaf.com/download/project/*"],
+    "permissions": ["activeTab", "tabs", "background", "webNavigation",
                     "nativeMessaging", "storage", "declarativeContent", 
-                    "http://*/", "https://*/", "*://ecjjfbmbjnhnjahdefacecabpfoibgma/",
-                    "https://www.overleaf.com/download/project/"],
+                    "http://*/", "https://*/"],
     "sandbox": {
         "pages": ["pdf/pdf.html"]
     },
     "externally_connectable": {
-        "matches": ["*://ecjjfbmbjnhnjahdefacecabpfoibgma/", "https://www.overleaf.com/download/project/"]
+        "matches": ["*://ecjjfbmbjnhnjahdefacecabpfoibgma/", "https://www.overleaf.com/download/project/*"]
     }
 }
