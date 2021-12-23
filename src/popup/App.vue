@@ -1,19 +1,19 @@
 <template>
-  <hello-world />
+  <popup />
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
+import popup from '@/components/popup.vue'
 
 export default {
   name: 'App',
-  components: { HelloWorld }
+  components: { popup }
 }
 </script>
 
 <style>
 html {
-  width: 400px;
-  height: 400px;
+  width: 260px;
+  height: 240px;
 }
 </style>
