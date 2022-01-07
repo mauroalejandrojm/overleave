@@ -21,6 +21,9 @@ module.exports = {
           entries: {
             'content-script': [
               'src/content-scripts/content-script.js'
+            ],
+            'listener': [
+              'src/content-scripts/listener.js',
             ]
           }
         }
