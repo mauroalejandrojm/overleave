@@ -39,6 +39,9 @@ npm run build
 npm run lint
 ```
 
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
 ## Availability:
 * [Edge extension](https://microsoftedge.microsoft.com/addons/detail/overleave/eeehbcnhmkmaemejinecopbagnpbccjh).
 
@@ -61,9 +64,6 @@ If you are using the Overleave extension, but everytime you update your project 
 2. Look for the "Cookies and Site permissions" section in the navigation bar.
 3. Scroll down and look for the "PDF documents" option and click it.
 4. Deactivate the "Always download PDF files" option by clicking the toggle.
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Next Improvements 
 
