@@ -53,7 +53,6 @@ If you are using the Overleave extension, but everytime you update your project 
 * Reload latex render in the last page visualized in browser.
 * Add an options page with settings and preferences.
 * Availability in Chrome for Overleave extension.
-* Guidelines in the UI for usability.
 
 ## Contributors
 
